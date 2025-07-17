@@ -5,7 +5,7 @@ import(
   "net/http"
 )
 
-func main.(){
+func main(){
   log.Println("サーバーを起動中です: 8080")
   http.ListenAndServe(":8080", 0)
 } //サーバが起動するだけなので、走らせてブラウザで　http://localhost:8080　を開いても404エラーを吐く 
