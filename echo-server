@@ -1,0 +1,21 @@
+package main
+
+import (
+	"io"
+  "log"
+	"net/http"
+)
+
+func main() {
+	http.HandleFunc("/echo", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			http.Error(w, "use POST method.", http.StatusMethodNotAllowed)
+			return //POST以外には405エラーを返す
+		}
+		io.Copy(w, r.Body)　//リクエストの本文をwに直接コピー
+	})
+  log.Println("Echo サーバー起動中 :8080")
+	http.ListenAndServe(":8080", nil)　//ポート番号8080で受付
+}
+
+//　curl -X POST http://localhost:8080/echo -d "（本文）" によってクライアントサイドから送
